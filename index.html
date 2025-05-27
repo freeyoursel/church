@@ -3,17 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой сайт</title>
+    <title>Слайд-шоу с музыкой</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .background-image {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .background-image.active {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <!-- Основной блок с картинкой -->
-    <div class="image-container">
-        <img src="1.png" alt="Описание картинки" width="2000">
-        <background-size: cover;>
-    <background-repeat: no-repeat;>
-    <background-position: center;> 
-    <background-attachment: fixed>
+    <!-- Аудиоплеер -->
+    <audio autoplay loop>
+        <source src="фон сайта.mp3.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио
+    </audio>
+
+    <!-- Контейнер для фоновых изображений -->
+    <div id="slideshow-container">
+        <!-- Изображения будут добавлены скриптом -->
     </div>
 
+    <script>
+        // Список фоновых изображений
+        const images = [
+            '1.png',
+            '387c94916c362cccf601996bdfe4477.png',
+            'd9274a04728ceece787b579462144bce.png',
+            'финалка.PNG'
+        ];
+
+        // Инициализация слайд-шоу
+        let currentImageIndex = 0;
+        const container = document.getElementById('slideshow-container');
+
+        // Создаем элементы изображений
+        images.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.className = 'background-image';
+            img.src = src;
+            if(index === 0) img.classList.add('active');
+            container.appendChild(img);
+        });
+
+        // Функция смены фона
+        function changeBackground() {
+            const images = document.querySelectorAll('.background-image');
+            
+            // Скрываем текущее изображение
+            images[currentImageIndex].classList.remove('active');
+            
+            // Переходим к следующему
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            
+            // Показываем новое изображение
+            images[currentImageIndex].classList.add('active');
+        }
+
+        // Запускаем смену каждые 5 секунд
+        setInterval(changeBackground, 5000);
+    </script>
 </body>
 </html>
