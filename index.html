@@ -21,8 +21,27 @@
             display: none;
         }
         
+        /* Стили только для финальной картинки */
+        .background-image[src="финалка.PNG"] {
+            width: auto;
+            height: auto;
+            max-width: 90%;
+            max-height: 90%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+        }
+        
         .background-image.active {
             display: block;
+        }
+
+        /* Кнопка поверх всего контента */
+        button {
+            position: fixed;
+            z-index: 1000;
+            margin: 10px;
         }
     </style>
 </head>
@@ -32,7 +51,7 @@
         <source src="фон сайта.mp3.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио
     </audio>
-    <button onclick="playMusic()" style="position: fixed; z-index: 100; margin: 10px;">▶️ Включить музыку</button>
+    <button onclick="playMusic()">▶️ Включить музыку</button>
 
     <!-- Контейнер для фоновых изображений -->
     <div id="slideshow-container">
@@ -43,28 +62,23 @@
     </div>
 
     <script>
-        // Исправленные имена файлов
         const images = document.querySelectorAll('.background-image');
         let currentImageIndex = 0;
 
-        // Функция смены фона
         function changeBackground() {
             images[currentImageIndex].classList.remove('active');
             currentImageIndex = (currentImageIndex + 1) % images.length;
             images[currentImageIndex].classList.add('active');
         }
 
-        // Запуск слайд-шоу (1 секунда вместо 5)
-        setInterval(changeBackground, 10000); // ← Здесь изменено значение
+        setInterval(changeBackground, 1000);
 
-        // Управление музыкой
         function playMusic() {
             const music = document.getElementById('music');
             music.play();
             document.querySelector('button').style.display = 'none';
         }
 
-        // Первый запуск
         changeBackground();
     </script>
 </body>
