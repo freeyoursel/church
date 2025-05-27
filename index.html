@@ -54,8 +54,8 @@
             images[currentImageIndex].classList.add('active');
         }
 
-        // Запуск слайд-шоу
-        setInterval(changeBackground, 5000);
+        // Запуск слайд-шоу (1 секунда вместо 5)
+        setInterval(changeBackground, 1000); // ← Здесь изменено значение
 
         // Управление музыкой
         function playMusic() {
